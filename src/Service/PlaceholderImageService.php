@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Interface\UniqIdentifierGeneratorInterface;
+use Hashids\Hashids;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\Service\Attribute\Required;
 
@@ -13,13 +14,14 @@ class PlaceholderImageService {
     private string $placeholderServiceProviderUrl = "https://via.placeholder.com/";
     private int $minWidth = 150;
     private int $minHeight = 150;
+    private Hashids $hashids;
 
     /**
      * PlaceholderImageService constructor.
-     * @param UniqIdentifierGeneratorInterface $generator
+     * @param Hashids $hashids
      */
-    public function __construct(UniqIdentifierGeneratorInterface $generator) {
-        $this->generator = $generator;
+    public function __construct(Hashids $hashids) {
+        $this->hashids = $hashids;
     }
 
     #[Required]

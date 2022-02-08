@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Index{% endblock %}
+
+{% block body %}
+
+    <h1>Index par default</h1>
+
+    <a href="/articles/add" class="myLink">Ajouter</a>
+    <a href="/articles/show/7" class="myLink">Voir l'article n°7</a>
+    <a href="/articles/delete/2" class="myLink">Supprimmer l'article n°2</a>
+    <a href="/articles/edit/6" class="myLink">Modifier l'article n°6</a>
+    <a href="/articles/list" class="myLink">Voir tout les articles</a>
+
+{% endblock %}

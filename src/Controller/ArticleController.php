@@ -10,39 +10,47 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/articles', name: 'articles_')]
 class ArticleController extends AbstractController {
 
+    private string $role = 'Admin';
+
     #[Route('/list', name: 'list')]
     public function list(): Response {
-        return new Response('<h1>Liste des articles</h1>');
+        return $this->render('articles/list.html.twig');
     }
 
     #[Route('/add', name: 'add')]
-    public function add(PlaceholderImageService $placeholderImage): Response {
-        try {
-            $success = $placeholderImage->getNewImageAndSave(350, 350, 'image.png');
+    public function add(): Response {
+        if ($this->role === 'Admin') {
+            return $this->render('articles/add.html.twig');
         }
-        catch (\Error $e) {
-            $success = false;
+        else {
+            return $this->redirectToRoute('articles_list');
         }
-
-        if ($success) {
-            return new Response('<h1>Article créé avec succès</h1>');
-        }
-        return new Response('<h1>Y\'a eu un soucis</h1>');
     }
 
     #[Route('/edit/{id<\d+>}', name: 'edit')]
     public function edit(int $id): Response {
-        return new Response("<h1>Modifie l'article n° $id</h1>");
+        if ($this->role === 'Admin') {
+            return $this->render('articles/edit.html.twig', [
+                'id' => $id
+            ]);
+        }
+        else {
+            return $this->redirectToRoute('articles_list');
+        }
     }
 
     #[Route('/delete/{id<\d+>}', name: 'delete')]
     public function delete(int $id): Response {
-        return new Response("<h1>Supprime l'article n° $id</h1>");
+        return $this->render('articles/delete.html.twig', [
+            'id' => $id
+        ]);
     }
 
     #[Route('/show/{id<\d+>}', name: 'show')]
     public function show(int $id): Response {
-        return new Response("<h1>Montre l'article n° $id</h1>");
+        return $this->render('articles/article.html.twig', [
+            'id' => $id
+        ]);
     }
 
 }

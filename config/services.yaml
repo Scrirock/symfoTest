@@ -25,4 +25,6 @@ services:
     # please note that last definitions always *replace* previous ones
 
     App\Service\PlaceholderImageService:
-        $generator: '@App\Service\FilenameGeneratorService'
+        - '@App\Service\FilenameGeneratorService'
+
+    Hashids\Hashids:
