@@ -27,8 +27,8 @@ services:
     App\Service\PlaceholderImageService:
         - '@App\Service\FilenameGeneratorService'
 
-    App\EventListener\KernelRequestListener:
-        tags:
-            - {name: kernel.event_listener, event: kernel.request}
+#    App\EventListener\KernelRequestListener:
+#        tags:
+#            - {name: kernel.event_listener, event: kernel.request}
 
     Hashids\Hashids:
