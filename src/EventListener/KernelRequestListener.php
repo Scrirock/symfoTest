@@ -7,6 +7,10 @@
 //
 //class KernelRequestListener {
 //
+//    /**
+//     * Display an error message if the request type is different from POST
+//     * @param RequestEvent $event
+//     */
 //    public function onKernelRequest(RequestEvent $event) {
 //        $response = new Response();
 //        if ($event->getRequest()->getRealMethod() === 'POST') {

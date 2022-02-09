@@ -10,6 +10,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class KernelEventSubscriber implements EventSubscriberInterface {
 
+    /**
+     * @return \array[][]
+     */
     public static function getSubscribedEvents(): array {
         return [
             KernelEvents::EXCEPTION => [
@@ -22,6 +25,10 @@ class KernelEventSubscriber implements EventSubscriberInterface {
         ];
     }
 
+    /**
+     * Display an error message if the request type is different from POST
+     * @param RequestEvent $event
+     */
     public function displayKernelRequestTriggered(RequestEvent $event) {
         $response = new Response();
 
@@ -35,12 +42,20 @@ class KernelEventSubscriber implements EventSubscriberInterface {
 
     }
 
+    /**
+     * Display an error message on the web page if tue route doesn't exist
+     * @param ExceptionEvent $event
+     */
     public function displayKernelExceptionTriggered(ExceptionEvent $event) {
         $response = new Response();
         $response->setContent("<h1>Une erreur est survenue</h1>");
         $event->setResponse($response);
     }
 
+    /**
+     * Log function in case of error
+     * @param ExceptionEvent $event
+     */
     public function logKernelExceptionTriggered(ExceptionEvent $event) {
         $message = $event->getThrowable()->getMessage();
         file_put_contents(__DIR__ . '../../var/log/dev.log', $message, FILE_APPEND);
